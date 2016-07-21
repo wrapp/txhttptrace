@@ -17,3 +17,5 @@ Ex:
 def my_handler(ctx, request, ...):
     pass
 ```
+
+License: MIT
