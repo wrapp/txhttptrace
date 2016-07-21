@@ -3,9 +3,9 @@
 from setuptools import setup
 
 setup(
-    name='txwrapplog',
+    name='txhttptrace',
     version='0.1.0',
-    py_modules=['txwrapplog'],
+    py_modules=['txhttptrace'],
     install_requires=[
         'twisted',
     ],
