@@ -19,11 +19,15 @@ def my_handler(ctx, request, ...):
 
 
 _logger = None
-
+_debug = False
 
 def set_logger(logger):
     global _logger
     _logger = logger
+
+def set_debug(debug):
+    global _debug
+    _debug = debug
 
 
 def trace(f):
@@ -69,7 +73,7 @@ def profile(f):
             ctx['took'] = time.time() - start
             if 'error' in ctx:
                 _logger.error('request failed', **ctx)
-            else:
+            elif _debug:
                 _logger.info('request successful', **ctx)
             return param
 
