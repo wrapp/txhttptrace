@@ -20,6 +20,7 @@ def my_handler(ctx, request, ...):
 
 _logger = None
 _debug = False
+_exceptions_to_ignore = []
 
 def set_logger(logger):
     global _logger
@@ -28,6 +29,13 @@ def set_logger(logger):
 def set_debug(debug):
     global _debug
     _debug = debug
+
+def set_exceptions_to_ignore(*exceptions):
+    global _exceptions_to_ignore
+    for e in exceptions:
+        if not issubclass(e, Exception):
+            raise TypeError('%s is not an Exception' % e)
+    _exceptions_to_ignore = exceptions
 
 
 def trace(f):
@@ -78,8 +86,9 @@ def profile(f):
             return param
 
         def handle_error(failure):
-            ctx['error'] = failure.getErrorMessage()
-            ctx['traceback'] = str(failure.getTraceback(elideFrameworkCode=True, detail='brief'))
+            if not failure.check(*_exceptions_to_ignore):
+                ctx['error'] = failure.getErrorMessage()
+                ctx['traceback'] = str(failure.getTraceback(elideFrameworkCode=True, detail='brief'))
             return failure
 
         d = f(ctx, request, *args, **kwargs)
