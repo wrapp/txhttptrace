@@ -50,8 +50,8 @@ def trace(f):
     @defer.inlineCallbacks
     def wrapper(request, *args, **kwargs):
         ctx = {'request-id': request.getHeader('X-Request-ID') or str(uuid.uuid4())}
+        request.requestHeaders.addRawHeader('X-Request-ID', ctx['request-id'])
         res = yield f(ctx, request, *args, **kwargs)
-        request.setHeader('X-Request-ID', ctx['request-id'])
         defer.returnValue(res)
     return wrapper
 
