@@ -85,7 +85,7 @@ def profile(f):
             if 'error' in ctx:
                 msg = 'request failed'
                 if _log_errors_as_warnings:
-                    _logger.warn(msg, **ctx)
+                    _logger.warning(msg, **ctx)
                 else:
                     _logger.error(msg, **ctx)
             elif _debug:
