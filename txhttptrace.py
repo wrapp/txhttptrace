@@ -26,6 +26,7 @@ _log_errors_as_warnings = False
 def set_logger(logger, log_errors_as_warnings=False):
     global _logger
     _logger = logger
+    global _log_errors_as_warnings
     _log_errors_as_warnings = log_errors_as_warnings
 
 def set_debug(debug):
