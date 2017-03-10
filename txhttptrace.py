@@ -80,7 +80,7 @@ def profile(f):
         def do_finally(param):
             ctx['took'] = time.time() - start
             if _debug:
-                _logger.info('request successful', **ctx)
+                _logger.info('txhttptrace debug request print', **ctx)
             return param
 
         def handle_error(failure):
