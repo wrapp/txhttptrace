@@ -21,13 +21,10 @@ def my_handler(ctx, request, ...):
 _logger = None
 _debug = False
 _exceptions_to_ignore = []
-_log_errors_as_warnings = False
 
-def set_logger(logger, log_errors_as_warnings=False):
+def set_logger(logger):
     global _logger
     _logger = logger
-    global _log_errors_as_warnings
-    _log_errors_as_warnings = log_errors_as_warnings
 
 def set_debug(debug):
     global _debug
@@ -82,13 +79,7 @@ def profile(f):
 
         def do_finally(param):
             ctx['took'] = time.time() - start
-            if 'error' in ctx:
-                msg = 'request failed'
-                if _log_errors_as_warnings:
-                    _logger.warning(msg, **ctx)
-                else:
-                    _logger.error(msg, **ctx)
-            elif _debug:
+            if _debug:
                 _logger.info('request successful', **ctx)
             return param
 
