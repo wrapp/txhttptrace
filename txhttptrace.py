@@ -1,8 +1,9 @@
 from functools import wraps
-from twisted.internet import defer
-import uuid
+from six.moves.urllib.parse import urlparse
 import time
-from urlparse import urlparse
+import uuid
+
+from twisted.internet import defer
 
 """
 Endpoints decorated with @trace will add an extra parameter, ctx. ctx needs to be down-propagated to all
